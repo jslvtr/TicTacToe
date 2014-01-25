@@ -1,0 +1,9 @@
+c:\users\jslvtr\documents\visual studio 2013\Projects\GameAssignment\GameAssignment\bin\Debug\GameAssignment.exe.config
+C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\bin\Debug\GameAssignment.exe
+C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\bin\Debug\GameAssignment.pdb
+C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\obj\Debug\GameAssignment.csprojResolveAssemblyReference.cache
+C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\obj\Debug\GameAssignment.Form1.resources
+C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\obj\Debug\GameAssignment.Properties.Resources.resources
+C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\obj\Debug\GameAssignment.csproj.GenerateResource.Cache
+C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\obj\Debug\GameAssignment.exe
+C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\obj\Debug\GameAssignment.pdb
