@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameAssignment
 {
-    class Score
+    public class Score
     {
         private string player1, player2;
         private string score;

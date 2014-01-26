@@ -19,6 +19,7 @@ namespace GameAssignment
         public Form1()
         {
             highscores = new Form2();
+            loadScores();
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -226,6 +227,50 @@ namespace GameAssignment
             {
                 button1_Click(sender, e);
             }
+        }
+
+        private void loadScores()
+        {
+            string line;
+            if (System.IO.File.Exists(@".\scoresave.txt"))
+            {
+                using (System.IO.StreamReader file = new System.IO.StreamReader(@".\scoresave.txt"))
+                {
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        string[] lineSplit = line.Split(',');
+                        highscores.addScore(lineSplit[0], lineSplit[1], lineSplit[2]);
+                    }
+                }
+            }
+        }
+
+        private void saveScores()
+        {
+            Score[] scores = highscores.getScores();
+
+            if (!System.IO.File.Exists(@".\scoresave.txt"))
+            {
+                System.IO.File.Create(@".\scoresave.txt");
+            }
+            using(System.IO.StreamWriter file = new System.IO.StreamWriter(@".\scoresave.txt")) {
+                foreach (Score s in scores)
+                {
+                    if (s != null)
+                    {
+                        file.WriteLine(s.getPlayer1() + "," + s.getPlayer2() + "," + s.getScore());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            saveScores();
         }
     }
 }

@@ -144,5 +144,10 @@ namespace GameAssignment
             e.Cancel = true;
         }
 
+        public Score[] getScores()
+        {
+            return this.scores;
+        }
+
     }
 }
