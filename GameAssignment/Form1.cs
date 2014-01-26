@@ -128,12 +128,12 @@ namespace GameAssignment
                     {
                         if (label2.Text == play1)
                         {
-                            MessageBox.Show(play2 + " wins laterally at " + i+1 + "!");
+                            MessageBox.Show(play2 + " wins laterally at " + (i+1) + "!");
                             increasePlayerScore(2);
                         }
                         else
                         {
-                            MessageBox.Show(play1 + " wins laterally at " + i+1 + "!");
+                            MessageBox.Show(play1 + " wins laterally at " + (i+1) + "!");
                             increasePlayerScore(1);
                         }
                         reset();
@@ -144,12 +144,12 @@ namespace GameAssignment
                 {
                     if (label2.Text == play1)
                     {
-                        MessageBox.Show(play2 + " wins vertically at " + i+1 + "!");
+                        MessageBox.Show(play2 + " wins vertically at " + (i+1) + "!");
                         increasePlayerScore(2);
                     }
                     else
                     {
-                        MessageBox.Show(play1 + " wins vertically at " + i+1 + "!");
+                        MessageBox.Show(play1 + " wins vertically at " + (i+1) + "!");
                         increasePlayerScore(1);
                     }
                     

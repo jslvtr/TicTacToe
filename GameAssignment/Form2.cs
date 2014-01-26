@@ -33,18 +33,7 @@ namespace GameAssignment
             }
             scores[scores.Length] = new Score(player1, player2, score);
 
-            //IEnumerable<Score> qry = scores;
-            //if (sortCols.Length > 0)
-            //{
-            //    IOrderedEnumerable<int[]> sorted =
-            //        qry.OrderBy(row => row[sortCols[0]]);
-            //    for (int i = 1; i < sortCols.Length; i++)
-            //    {
-            //        int col = sortCols[i]; // for capture
-            //        sorted = sorted.ThenBy(row => row[col]);
-            //    }
-            //    qry = sorted;
-            //}
+            sortScoreArray(scores, 0, scores.Length);
 
         }
 
@@ -57,6 +46,40 @@ namespace GameAssignment
             }
             output[arr.Length] = null;
             arr = output;
+        }
+
+        private void sortScoreArray(Score[] arr, int left, int right)
+        {
+            int index = partition(arr, left, right);
+            if (left < index - 1)
+                sortScoreArray(arr, left, index - 1);
+            if (index < right)
+                sortScoreArray(arr, index, right);
+        }
+
+        private int partition(Score[] arr, int left, int right)
+        {
+            int i = left, j = right;
+            Score tmp;
+            Score pivot = arr[(left + right) / 2];
+
+            while (i <= j)
+            {
+                while (arr[i].getDiff() < pivot.getDiff())
+                    i++;
+                while (arr[j].getDiff() > pivot.getDiff())
+                    j--;
+                if (i <= j)
+                {
+                    tmp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = tmp;
+                    i++;
+                    j--;
+                }
+            };
+
+            return i;
         }
     }
 }

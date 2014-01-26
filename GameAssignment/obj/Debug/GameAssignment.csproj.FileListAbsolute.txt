@@ -7,3 +7,4 @@ C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignm
 C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\obj\Debug\GameAssignment.csproj.GenerateResource.Cache
 C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\obj\Debug\GameAssignment.exe
 C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\obj\Debug\GameAssignment.pdb
+C:\Users\jslvtr\Documents\Visual Studio 2013\Projects\GameAssignment\GameAssignment\obj\Debug\GameAssignment.Form2.resources
