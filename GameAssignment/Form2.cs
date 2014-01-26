@@ -18,14 +18,21 @@ namespace GameAssignment
         public Form2()
         {
             scores = new Score[15];
-            InitializeComponent();
         }
 
+        /*
+         * This method adds a new score to the array.
+         * Then it orders the array so that all the scores are at the top.
+         */
         public void addScore(string player1, string player2, string score)
         {
             Score toAdd = new Score(player1, player2, score);
+            if (toAdd.getDiff() == 0) return;
             for (int i = 0; i < scores.Length; i++)
             {
+                // If any of the scores is null, we add the new score there and then return.
+                // Then we order the array by the scores we have in the array.
+                // This makes sure that there are no errors when trying to order, in case there were any `null` values to order by.
                 if (scores[i] == null)
                 {
                     scores[i] = toAdd;
@@ -33,36 +40,34 @@ namespace GameAssignment
                     return;
                 }
             }
-            if (toAdd.getDiff() > scores[scores.Length].getDiff())
+            // If the score we're trying to add is greater than the last score (which is the smallest) then we add it.
+            if (toAdd.getDiff() > scores[scores.Length-1].getDiff())
             {
-                scores[scores.Length] = toAdd;
+                scores[scores.Length-1] = toAdd;
             }
 
-            sortScoreArray(scores, 0, scores.Length);
+            sortScoreArray(scores, 0, scores.Length-1);
 
         }
 
-        private void shiftArrayUp(Object[] arr)
-        {
-            Object[] output = new Object[arr.Length];
-            for (int i = 1; i < arr.Length; i++)
-            {
-                output[i - 1] = arr[i];
-            }
-            output[arr.Length] = null;
-            arr = output;
-        }
-
+        /*
+         * This method is used to sort the array.
+         * Together with `half` it implements a quicksort.
+         */
         private void sortScoreArray(Score[] arr, int left, int right)
         {
-            int index = partition(arr, left, right);
+            int index = half(arr, left, right);
             if (left < index - 1)
                 sortScoreArray(arr, left, index - 1);
             if (index < right)
                 sortScoreArray(arr, index, right);
         }
 
-        private int partition(Score[] arr, int left, int right)
+        /*
+         * Gets the halfpoint of the array and performs substitutions.
+         * Essentially the implementation of the quicksort.
+         */
+        private int half(Score[] arr, int left, int right)
         {
             int i = left, j = right;
             Score tmp;
@@ -70,11 +75,11 @@ namespace GameAssignment
 
             while (i <= j)
             {
-                while (arr[i].getDiff() < pivot.getDiff())
+                while (arr[i].getDiff() > pivot.getDiff())
                 {
                     i++;
                 }
-                while (arr[j].getDiff() > pivot.getDiff())
+                while (arr[j].getDiff() < pivot.getDiff())
                 {
                     j--;
                 }
@@ -91,8 +96,13 @@ namespace GameAssignment
             return i;
         }
 
+        /*
+         * This method creates the labels to display the scores in the form.
+         * It is called every time we want to display the form, just in case they change.
+         */
         public void display()
         {
+            removeAll();
             for (int i = 0; i < scores.Length; i++)
             {
                 if (scores[i] == null)
@@ -131,6 +141,18 @@ namespace GameAssignment
                 score.Location = new Point(227, y);
                 Controls.Add(score);
             }
+        }
+
+        /*
+         * This removes all components from the Form, and then re-adds the title labels.
+         */
+        private void removeAll()
+        {
+            for (int i = this.Controls.Count - 1; i >= 0; i--)
+            {
+                this.Controls.RemoveAt(i);
+            }
+            InitializeComponent();
         }
 
         /*

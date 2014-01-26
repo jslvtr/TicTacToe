@@ -311,8 +311,16 @@ namespace GameAssignment
                 {
                     while ((line = file.ReadLine()) != null)
                     {
-                        string[] lineSplit = line.Split(',');
-                        highscores.addScore(lineSplit[0], lineSplit[1], lineSplit[2]);
+                        try
+                        {
+                            string[] lineSplit = line.Split(',');
+                            highscores.addScore(lineSplit[0], lineSplit[1], lineSplit[2]);
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                        
                     }
                 }
             }
