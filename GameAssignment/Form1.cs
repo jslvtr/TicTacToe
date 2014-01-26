@@ -102,10 +102,17 @@ namespace GameAssignment
             {
                 character = "O";
             }
-            label2.Text = (label2.Text == play1 ? play2 : play1);
             Button btn = (Button)sender;
-            btn.Text = character;
-            checkWin();
+            if (btn.Text == "")
+            {
+                label2.Text = (label2.Text == play1 ? play2 : play1);
+                btn.Text = character;
+                checkWin();
+            }
+            else
+            {
+                MessageBox.Show("You cannot press a button once it's already owned by a player!");
+            }
         }
 
         private void checkWin()
