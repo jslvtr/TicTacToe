@@ -34,6 +34,9 @@ namespace GameAssignment
             InitializeComponent();
         }
 
+        /*
+         * This method adds the buttons that were created on the constructor to the Form.
+         */
         public void CreateButtons()
         {
 
@@ -48,12 +51,20 @@ namespace GameAssignment
             label4.Text = "0 : 0";
         }
 
+        /*
+         * This is the method that gets called when we press the "Rules" button (or label)
+         */
         private void label6_Click(object sender, EventArgs e)
         {
             // We have clicked on the "Rules" button
             MessageBox.Show("Click on a button if it is your turn. Player 1 = 'X', Player 2 = 'O'.\nHighscores get saved when you reset the score."); 
         }
 
+        /*
+         * This is the method that gets called when we press the "Play again" button (or label)
+         * If the score is 0:0 we assume the user wants the score reset.
+         * If the score isn't 0:0 then we simply clear the board, ready for another game.
+         */
         private void label5_Click(object sender, EventArgs e)
         {
             // We have clicked on the "Play again" button
@@ -77,6 +88,9 @@ namespace GameAssignment
             }
         }
 
+        /*
+         * In this method we simply create the High-score Form and then un-hide it (show it).
+         */
         private void label7_Click(object sender, EventArgs e)
         {
             // We have clicked on Highscore
@@ -84,6 +98,9 @@ namespace GameAssignment
             highscores.Show();
         }
 
+        /*
+         * This method is used to change all the text of the buttons to "", essentially resetting the board.
+         */
         private void reset()
         {
             for (int i = 0; i < 3; i++)
@@ -95,6 +112,13 @@ namespace GameAssignment
             }
         }
 
+        /*
+         * This method is used whenever a button is clicked.
+         * We first check what symbol we are going to write, depending on whose turn it is.
+         * Then, if the button is empty, we write the appropriate character on it.
+         * Then we check for if someone has won the game.
+         * If the button wasn't empty, we display a message saying that the button wasn't empty and thus cannot be clicked.
+         */
         public void ClickButton(Object sender, System.EventArgs e)
         {
             String character = "X";
@@ -115,56 +139,79 @@ namespace GameAssignment
             }
         }
 
+        /*
+         * This is the method used to check if someone has won the game.
+         */
         private void checkWin()
         {
-            int lateral = 0;
-            Button lastLateral = null;
+            // This is used to count the number of buttons that are equal vertical.
+            int vertical = 0;
+            // This is used to remember the last button on the column.
+            Button lastVertical = null;
+
+            // Here we iterate through the rows.
             for (int i = 0; i < 3; i++)
             {
-                lateral = 0;
+                vertical = 0;
+                
+                // Here we iterate through the columns.
                 for (int j = 0; j < 3; j++)
                 {
-                    if (lastLateral != null)
+                    if (lastVertical != null)
                     {
-                        if (buttons[i, j].Text == lastLateral.Text && buttons[i, j].Text != "")
+                        if (buttons[i, j].Text == lastVertical.Text && buttons[i, j].Text != "")
                         {
-                            lateral++;
+                            // We add one to vertical if it wasn't empty and it's text is the same as the current buttons' text.
+                            vertical++;
                         }
                     }
                     else
                     {
-                        lateral = 0;
+                        // If the previous vertical button was null (meaning we are at the beginning of a row), we set `vertical = 0`.
+                        vertical = 0;
                     }
-                    lastLateral = buttons[i, j];
+
+                    // Then we set the last vertical button to be the current button, after all the checks.
+                    lastVertical = buttons[i, j];
+
+                    // For the current column, if all the the buttons have the same text, and it is not empty,
                     if (buttons[0, j].Text == buttons[1, j].Text && buttons[1, j].Text == buttons[2, j].Text && buttons[0, j].Text != "")
                     {
+                        // If the current players' turn is Player 1, then Player 2 must've won (since the check happens after changing the turn)
                         if (label2.Text == play1)
                         {
                             MessageBox.Show(play2 + " wins laterally at " + (i+1) + "!");
                             increasePlayerScore(2);
                         }
+
+                        // If the current players' turn is Player 2, then Player 1 must've won (since the check happens after changing the turn)
                         else
                         {
                             MessageBox.Show(play1 + " wins laterally at " + (i+1) + "!");
                             increasePlayerScore(1);
                         }
+                        // Then we reset the board and break out of the loop.
                         reset();
                         break;
                     }
                 }
-                if (lateral == 2)
+                // If vertical == 2 this means that 3 buttons were identical, and not empty. Someone has won vertically!
+                if (vertical == 2)
                 {
+                    // If the current players' turn is Player 1, then Player 2 must've won (since the check happens after changing the turn)
                     if (label2.Text == play1)
                     {
                         MessageBox.Show(play2 + " wins vertically at " + (i+1) + "!");
                         increasePlayerScore(2);
                     }
+
+                    // If the current players' turn is Player 2, then Player 1 must've won (since the check happens after changing the turn)
                     else
                     {
                         MessageBox.Show(play1 + " wins vertically at " + (i+1) + "!");
                         increasePlayerScore(1);
                     }
-                    
+                    // Then we reset the board and break out of the loop.
                     reset();
                     break;
                 }
@@ -190,6 +237,10 @@ namespace GameAssignment
 
         }
 
+        /*
+         * This method increases the player score for a player that is passed as a parameter.
+         * We simply modify the label that shows the score.
+         */
         private void increasePlayerScore(int player)
         {
             string score = label4.Text;
@@ -209,6 +260,9 @@ namespace GameAssignment
             }
         }
 
+        /*
+         * button1 is what we press when deciding the Player names at the start of the game.
+         */
         private void button1_Click(object sender, EventArgs e)
         {
             if (label8.Text.Contains("1"))
@@ -216,10 +270,12 @@ namespace GameAssignment
                 play1 = textBox1.Text;
                 label8.Text = "Enter name for player 2";
                 textBox1.Text = "Player 2";
+                // Remember to select all the text in the textbox so that it is easier for the user to simply press "Enter" if they agree with "Player 2" being used.
                 textBox1.SelectAll();
             }
             else
             {
+                // We hide all the buttons and proceed to creating the rest of the board.
                 play2 = textBox1.Text;
                 label8.Hide();
                 button1.Hide();
@@ -228,19 +284,29 @@ namespace GameAssignment
             }
         }
 
+        /*
+         * Here we make sure that we can press "Enter" when selecting player names,
+         * rather than having to press the button. Simply for speed!
+         */
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
+            if (e.KeyChar == 13 && textBox1.Visible)
             {
                 button1_Click(sender, e);
             }
         }
 
+        /*
+         * This method is used to load the scores from a text file.
+         * What happens is that after creating the high-scores form, this simply adds every score in the file to the form.
+         */
         private void loadScores()
         {
             string line;
+            // We check that the file exists...
             if (System.IO.File.Exists(@".\scoresave.txt"))
             {
+                // We use `using` so that the StreamReader is destroyed at the end of the block
                 using (System.IO.StreamReader file = new System.IO.StreamReader(@".\scoresave.txt"))
                 {
                     while ((line = file.ReadLine()) != null)
@@ -252,21 +318,31 @@ namespace GameAssignment
             }
         }
 
+        /*
+         * Here we save the scores to the text file.
+         * If the file doesn't exist, we create it first.
+         * Then we simply go through all our scores and write them to file in .CSV format.
+         */
         private void saveScores()
         {
             Score[] scores = highscores.getScores();
 
+            // Create the file if it doesn't exist...
             if (!System.IO.File.Exists(@".\scoresave.txt"))
             {
                 System.IO.File.Create(@".\scoresave.txt");
             }
+
+            // Once again we use `using`.
             using(System.IO.StreamWriter file = new System.IO.StreamWriter(@".\scoresave.txt")) {
                 foreach (Score s in scores)
                 {
+                    // If the score isn't null, we write it to the file.
                     if (s != null)
                     {
                         file.WriteLine(s.getPlayer1() + "," + s.getPlayer2() + "," + s.getScore());
                     }
+                    // If the score is null, we know that we have gotten to the end of the scores, because they will always be in order.
                     else
                     {
                         break;
@@ -275,6 +351,9 @@ namespace GameAssignment
             }
         }
 
+        /*
+         * This method makes sure that we save the scores before closing the application.
+         */
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             saveScores();
