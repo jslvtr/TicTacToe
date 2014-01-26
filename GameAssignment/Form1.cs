@@ -14,9 +14,11 @@ namespace GameAssignment
     {
         private System.Windows.Forms.Button[,] buttons = new System.Windows.Forms.Button[3, 3];
         private string play1, play2;
+        private Form2 highscores;
 
         public Form1()
         {
+            highscores = new Form2();
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -69,6 +71,7 @@ namespace GameAssignment
             }
             else
             {
+                highscores.addScore(play1, play2, label4.Text);
                 label4.Text = "0 : 0";
             }
         }
@@ -76,7 +79,8 @@ namespace GameAssignment
         private void label7_Click(object sender, EventArgs e)
         {
             // We have clicked on Highscore
-
+            highscores.display();
+            highscores.Show();
         }
 
         private void reset()
