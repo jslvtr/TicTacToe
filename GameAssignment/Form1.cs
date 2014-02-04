@@ -153,6 +153,7 @@ namespace GameAssignment
             for (int i = 0; i < 3; i++)
             {
                 vertical = 0;
+                lastVertical = null;
                 
                 // Here we iterate through the columns.
                 for (int j = 0; j < 3; j++)
@@ -192,7 +193,7 @@ namespace GameAssignment
                         }
                         // Then we reset the board and break out of the loop.
                         reset();
-                        break;
+                        return;
                     }
                 }
                 // If vertical == 2 this means that 3 buttons were identical, and not empty. Someone has won vertically!
@@ -213,7 +214,7 @@ namespace GameAssignment
                     }
                     // Then we reset the board and break out of the loop.
                     reset();
-                    break;
+                    return;
                 }
 
             }
@@ -233,8 +234,24 @@ namespace GameAssignment
                     increasePlayerScore(1);
                 }
                 reset();
+                return;
             }
-
+            bool complete = true;
+            for (int z = 0; z < 3; z++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    if (buttons[z, y].Text == "")
+                    {
+                        complete = false;
+                    }
+                }
+            }
+            if (complete)
+            {
+                MessageBox.Show("Draw!");
+                reset();
+            }
         }
 
         /*
